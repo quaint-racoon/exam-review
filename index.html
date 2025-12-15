@@ -299,20 +299,20 @@
             if (type === 0) { 
                 const num = Math.floor(Math.random() * 3000) + 500; 
                 const ans = num.toString(16).toUpperCase();
-                q = { text: `Convert Decimal <strong>${num}</strong> to Hexadecimal.`, options: generateDistractors(ans, 16), correct: ans, expl: getBaseConversionSteps(num, 16) };
+                q = { text: `Convert Decimal <strong>${num}</strong> to Hexadecimal.`, options: generateDistractors(ans, 16), correct: ans, expl: getBaseConversionSteps(num, 16), difficulty: "Hard" };
             } else if (type === 1) { 
                 const num = Math.floor(Math.random() * 1000) + 100;
                 const ans = num.toString(8);
-                q = { text: `Convert Decimal <strong>${num}</strong> to Octal.`, options: generateDistractors(ans, 8), correct: ans, expl: getBaseConversionSteps(num, 8) };
+                q = { text: `Convert Decimal <strong>${num}</strong> to Octal.`, options: generateDistractors(ans, 8), correct: ans, expl: getBaseConversionSteps(num, 8), difficulty: "Hard" };
             } else if (type === 2) { 
                 const num = Math.floor(Math.random() * 500) + 50;
                 const bin = num.toString(2);
                 const ans = num.toString(8);
-                q = { text: `Convert Binary <strong>${bin}</strong> to Octal.`, options: generateDistractors(ans, 8), correct: ans, expl: `<strong>Strategy:</strong> Group by 3s.<br>${formatBinaryGroup(bin, 3)}` };
+                q = { text: `Convert Binary <strong>${bin}</strong> to Octal.`, options: generateDistractors(ans, 8), correct: ans, expl: `<strong>Strategy:</strong> Group by 3s.<br>${formatBinaryGroup(bin, 3)}`, difficulty: "Hard" };
             } else if (type === 3) { 
                 const num = Math.floor(Math.random() * 500) + 100;
                 const hex = num.toString(16).toUpperCase();
-                q = { text: `Convert Hexadecimal <strong>${hex}</strong> to Decimal.`, options: generateDistractors(num.toString(), 10), correct: num.toString(), expl: getHexToDecSteps(hex) };
+                q = { text: `Convert Hexadecimal <strong>${hex}</strong> to Decimal.`, options: generateDistractors(num.toString(), 10), correct: num.toString(), expl: getHexToDecSteps(hex), difficulty: "Hard" };
             } else { 
                 const n1 = Math.floor(Math.random() * 200) + 20;
                 const n2 = Math.floor(Math.random() * 100) + 10;
@@ -320,10 +320,9 @@
                 const h1 = n1.toString(16).toUpperCase();
                 const h2 = n2.toString(16).toUpperCase();
                 const ans = sum.toString(16).toUpperCase();
-                q = { text: `Hex Addition: <strong>${h1} + ${h2}</strong>`, options: generateDistractors(ans, 16), correct: ans, expl: `Decimal sum: ${sum}. Hex: ${ans}` };
+                q = { text: `Hex Addition: <strong>${h1} + ${h2}</strong>`, options: generateDistractors(ans, 16), correct: ans, expl: `Decimal sum: ${sum}. Hex: ${ans}`, difficulty: "Hard" };
             }
             q.chapter = "Chapter 6";
-            q.difficulty = "Calculation";
             questions.push(q);
         }
         return questions;
@@ -366,23 +365,114 @@
         return bin.match(new RegExp('.{1,'+size+'}', 'g')).join(" ");
     }
 
-    // Static Banks (Abbreviated for length, assumes previous 50/50 content logic exists or is generated)
+    // Static Banks - Now including SIMPLE / "Stupid" Questions mixed with Hard ones
     const algoQuestions = [
-        { text: "Property ensuring termination?", options: ["Finiteness", "Definiteness", "Effectiveness", "Input"], correct: "Finiteness", expl: "Stops after finite steps.", difficulty: "Theory" },
-        { text: "Trace: <code>x=10; while(x>5) x-=2;</code> Final x?", options: ["4", "5", "6", "3"], correct: "4", expl: "10, 8, 6, 4 (Stop).", difficulty: "Tracing" },
-        // ... (Include all previous static questions here)
-        { text: "Start/End symbol?", options: ["Oval", "Rectangle", "Diamond", "Line"], correct: "Oval", expl: "Terminator symbol.", difficulty: "Theory" }
+        // Simple / Basic (The "Stupid" ones)
+        { text: "What is an algorithm?", options: ["A step-by-step procedure to solve a problem", "A hardware component", "A programming language", "A type of computer"], correct: "A step-by-step procedure to solve a problem", expl: "Definition: A sequence of activities to be processed for getting desired output.", difficulty: "Simple" },
+        { text: "Which symbol represents 'Start' or 'Stop' in a flowchart?", options: ["Oval", "Rectangle", "Diamond", "Parallelogram"], correct: "Oval", expl: "Ovals are terminal symbols.", difficulty: "Simple" },
+        { text: "Which symbol represents 'Input' or 'Output' in a flowchart?", options: ["Parallelogram", "Rectangle", "Diamond", "Oval"], correct: "Parallelogram", expl: "Parallelograms denote input/output operations.", difficulty: "Simple" },
+        { text: "Which symbol represents a 'Process' or calculation in a flowchart?", options: ["Rectangle", "Oval", "Diamond", "Parallelogram"], correct: "Rectangle", expl: "Rectangles are for processing steps like assignments or math.", difficulty: "Simple" },
+        { text: "Which symbol represents a 'Decision' in a flowchart?", options: ["Diamond", "Rectangle", "Oval", "Circle"], correct: "Diamond", expl: "Diamonds are used for decisions (Yes/No, True/False).", difficulty: "Simple" },
+        { text: "A loop that never stops is called a(n):", options: ["Infinite loop", "Finite loop", "Circular loop", "Broken loop"], correct: "Infinite loop", expl: "A loop without a terminating condition is infinite.", difficulty: "Simple" },
+        { text: "Which is NOT a type of control structure?", options: ["Recursion", "Sequence", "Selection", "Repetition"], correct: "Recursion", expl: "The basic structures are Sequence, Selection, and Repetition.", difficulty: "Simple" },
+        { text: "What does 'Input' mean in an algorithm?", options: ["Data given to the algorithm", "Data produced by the algorithm", "The speed of the algorithm", "The complexity"], correct: "Data given to the algorithm", expl: "Values provided at the start.", difficulty: "Simple" },
+        { text: "What does 'Output' mean in an algorithm?", options: ["Result produced", "Data entered", "Code written", "Errors found"], correct: "Result produced", expl: "The expected result after processing.", difficulty: "Simple" },
+        { text: "Pseudocode is written for:", options: ["Humans", "Computers", "Compilers", "Robots"], correct: "Humans", expl: "It's an informal description for human understanding.", difficulty: "Simple" },
+        { text: "What operator is used for assignment?", options: ["=", "==", "===", "+"], correct: "=", expl: "= assigns a value to a variable.", difficulty: "Simple" },
+        { text: "What operator compares equality?", options: ["==", "=", "+", "-"], correct: "==", expl: "== checks if two values are equal.", difficulty: "Simple" },
+        { text: "True OR False equals:", options: ["True", "False", "Null", "Error"], correct: "True", expl: "OR is true if at least one operand is true.", difficulty: "Simple" },
+        { text: "True AND False equals:", options: ["False", "True", "Null", "Error"], correct: "False", expl: "AND is only true if both operands are true.", difficulty: "Simple" },
+        
+        // Hard / Tracing (The "Strict" ones)
+        { text: "Which property ensures an algorithm stops after a finite number of steps?", options: ["Finiteness", "Definiteness", "Effectiveness", "Output"], correct: "Finiteness", expl: "Finiteness dictates that the algorithm must terminate.", difficulty: "Theory" },
+        { text: "Trace: <code>x=10; y=5; while(x>y) { x=x-2; y=y+1; }</code> What are x and y?", options: ["x=6, y=7", "x=4, y=8", "x=5, y=5", "x=6, y=6"], correct: "x=6, y=7", expl: "Iter 1: x=8, y=6. Iter 2: x=6, y=7 (Stop).", difficulty: "Tracing" },
+        { text: "Trace: <code>A=5; B=10; if(A>B) C=A; else C=B;</code> Value of C?", options: ["5", "10", "0", "Error"], correct: "10", expl: "5 is not greater than 10, so Else executes: C=B=10.", difficulty: "Tracing" },
+        { text: "What defines 'Definiteness' in an algorithm?", options: ["Each step is unambiguous", "It produces output", "It uses math", "It takes input"], correct: "Each step is unambiguous", expl: "Every step must have one clear meaning.", difficulty: "Theory" },
+        { text: "Trace: <code>Sum=0; for(i=1; i<=3; i++) Sum=Sum+i;</code> Value of Sum?", options: ["6", "3", "5", "1"], correct: "6", expl: "Sum = 1 + 2 + 3 = 6.", difficulty: "Tracing" },
+        { text: "Effectiveness in algorithms means:", options: ["Steps are basic and doable", "It runs fast", "It uses less memory", "It has 0 steps"], correct: "Steps are basic and doable", expl: "Operations must be basic enough to be done by a human with paper.", difficulty: "Theory" },
+        { text: "Trace: <code>N=4; F=1; while(N>0) { F=F*N; N=N-1; }</code> Value of F?", options: ["24", "12", "10", "4"], correct: "24", expl: "Computes 4! (4*3*2*1) = 24.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=1; if(x>0) x=x+1; if(x>1) x=x+2;</code> Value of x?", options: ["4", "2", "3", "1"], correct: "4", expl: "First if: x becomes 2. Second if: 2>1 is True, so x becomes 2+2=4.", difficulty: "Tracing" },
+        { text: "Trace: <code>i=0; do { i++; } while(i < 0);</code> Value of i?", options: ["1", "0", "Infinite", "Error"], correct: "1", expl: "Do-while executes at least once before checking condition.", difficulty: "Tracing" },
+        { text: "Trace: <code>Count=0; while(Count!=5) Count=Count+2;</code> Result?", options: ["Infinite Loop", "Count=5", "Count=6", "Count=4"], correct: "Infinite Loop", expl: "Count goes 0, 2, 4, 6, 8... never hits exactly 5.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=10; y=20; temp=x; x=y; y=temp;</code> Value of x?", options: ["20", "10", "0", "30"], correct: "20", expl: "Standard swap algorithm. x takes y's old value.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=5; y=2; z = x % y;</code> Value of z?", options: ["1", "2.5", "2", "5"], correct: "1", expl: "Modulus operator (%) gives remainder. 5 / 2 = 2 R 1.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=2; x=x*x; x=x*x;</code> Value of x?", options: ["16", "4", "8", "32"], correct: "16", expl: "x becomes 4, then 4*4=16.", difficulty: "Tracing" },
+        { text: "Trace: <code>if(5 > 3 AND 2 < 4) print 'Yes'</code>", options: ["Yes", "No", "Error", "Nothing"], correct: "Yes", expl: "Both conditions are True, so AND is True.", difficulty: "Tracing" },
+        { text: "Trace: <code>S=0; i=1; while(i<5) {S+=i; i+=2;}</code> Value of S?", options: ["4", "1", "9", "5"], correct: "4", expl: "i=1(S=1), i=3(S=1+3=4), i=5(Stop). S=4.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=10; if(x==10) x=5; else x=0;</code>", options: ["5", "10", "0", "Error"], correct: "5", expl: "Condition is True.", difficulty: "Tracing" },
+        { text: "Trace: <code>for(k=0; k<3; k++);</code> Final k?", options: ["3", "2", "0", "4"], correct: "3", expl: "Loop increments k to 3, checking k<3 fails, loop ends. k is 3.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=5; y=x++;</code> Value of y?", options: ["5", "6", "4", "Error"], correct: "5", expl: "Post-increment: assigns 5 to y, THEN increments x.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=5; y=++x;</code> Value of y?", options: ["6", "5", "4", "Error"], correct: "6", expl: "Pre-increment: increments x to 6, THEN assigns to y.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=10; while(x>0) x=x-3;</code> Final x?", options: ["-2", "0", "1", "-1"], correct: "-2", expl: "10, 7, 4, 1, -2 (Stop).", difficulty: "Tracing" },
+        { text: "Which operator has highest precedence?", options: ["()", "+", "*", "="], correct: "()", expl: "Parentheses are evaluated first.", difficulty: "Theory" },
+        { text: "Trace: <code>x=True; y=NOT x;</code>", options: ["False", "True", "1", "0"], correct: "False", expl: "Inversion.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=8; y=3; z=x/y (integer div);</code>", options: ["2", "2.66", "3", "8"], correct: "2", expl: "Integer division truncates decimal.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=1; while(x<=4) {print x; x*=2;}</code> Output?", options: ["1 2 4", "1 2 3 4", "1 2", "1 2 4 8"], correct: "1 2 4", expl: "1, 2, 4. Next is 8, which fails <=4.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=0; if(x) print A; else print B;</code>", options: ["B", "A", "Error", "None"], correct: "B", expl: "0 is falsey in most logic.", difficulty: "Tracing" },
+        { text: "Trace: <code>x=5; y=2; z=x+y*2;</code>", options: ["9", "14", "10", "7"], correct: "9", expl: "Order of operations: 2*2=4, 5+4=9.", difficulty: "Tracing" }
     ];
-    // Fill Algorithm bank with copies if needed for demo
-    while(algoQuestions.length < 50) algoQuestions.push({...algoQuestions[0], text: "Trace: <code>x=0; for(i=0;i<5;i++) x++;</code>", correct:"5", options:["4","5","6","0"]});
+    // Fill Algorithm bank to 50
+    while(algoQuestions.length < 50) algoQuestions.push(algoQuestions[Math.floor(Math.random() * algoQuestions.length)]);
 
     const netQuestions = [
-        { text: "Protocol for IP assignment?", options: ["DHCP", "DNS", "FTP", "HTTP"], correct: "DHCP", expl: "Dynamic Host Config Protocol.", difficulty: "Theory" },
-        { text: "Layer 3 Device?", options: ["Router", "Switch", "Hub", "Cable"], correct: "Router", expl: "Routes packets.", difficulty: "Theory" },
-        // ... (Include all previous static questions here)
-        { text: "Secure Web Port?", options: ["443", "80", "21", "22"], correct: "443", expl: "HTTPS.", difficulty: "Hard" }
+        // Simple / Basic (The "Stupid" ones)
+        { text: "What does LAN stand for?", options: ["Local Area Network", "Large Area Network", "Long Area Network", "Local Array Network"], correct: "Local Area Network", expl: "Network in a small area like a home or office.", difficulty: "Simple" },
+        { text: "What does WAN stand for?", options: ["Wide Area Network", "Wireless Area Network", "Web Area Network", "Whole Area Network"], correct: "Wide Area Network", expl: "Network covering a large geographic area.", difficulty: "Simple" },
+        { text: "What does MAN stand for?", options: ["Metropolitan Area Network", "Main Area Network", "Massive Area Network", "Mini Area Network"], correct: "Metropolitan Area Network", expl: "Network covering a city.", difficulty: "Simple" },
+        { text: "What does PAN stand for?", options: ["Personal Area Network", "Public Area Network", "Private Area Network", "Past Area Network"], correct: "Personal Area Network", expl: "Smallest network, like Bluetooth.", difficulty: "Simple" },
+        { text: "What connects a computer to a network?", options: ["NIC (Network Interface Card)", "CPU", "RAM", "Hard Drive"], correct: "NIC (Network Interface Card)", expl: "Hardware component for network connection.", difficulty: "Simple" },
+        { text: "What is a 'Node' in a network?", options: ["Any device connected to the network", "Only the server", "Only the router", "The cables"], correct: "Any device connected to the network", expl: "Computers, printers, routers are all nodes.", difficulty: "Simple" },
+        { text: "What does a 'Server' do?", options: ["Provides resources", "Requests resources", "Connects cables", "Nothing"], correct: "Provides resources", expl: "Servers serve data to clients.", difficulty: "Simple" },
+        { text: "What does a 'Client' do?", options: ["Requests resources", "Provides resources", "Routes traffic", "Filters spam"], correct: "Requests resources", expl: "Clients ask servers for data.", difficulty: "Simple" },
+        { text: "Which cable is made of copper wires twisted together?", options: ["Twisted Pair", "Coaxial", "Fiber Optic", "Power cable"], correct: "Twisted Pair", expl: "Standard Ethernet cable.", difficulty: "Simple" },
+        { text: "Which cable uses a glass core?", options: ["Fiber Optic", "Coaxial", "Twisted Pair", "USB"], correct: "Fiber Optic", expl: "Uses light for transmission.", difficulty: "Simple" },
+        { text: "Which wireless technology uses radio signals for short distances?", options: ["Bluetooth", "Fiber", "Satellite", "Microwave"], correct: "Bluetooth", expl: "Short-range wireless.", difficulty: "Simple" },
+        { text: "What does Wi-Fi stand for?", options: ["Wireless Fidelity", "Wireless Find", "Wide Fidelity", "Web Fidelity"], correct: "Wireless Fidelity", expl: "Standard wireless networking.", difficulty: "Simple" },
+        { text: "127.0.0.1 is known as:", options: ["Loopback address", "Global IP", "Broadcast IP", "Router IP"], correct: "Loopback address", expl: "Points back to the same computer (localhost).", difficulty: "Simple" },
+        { text: "What command shows IP configuration on Windows?", options: ["ipconfig", "ifconfig", "show ip", "net stat"], correct: "ipconfig", expl: "Windows command for IP details.", difficulty: "Simple" },
+        { text: "What command checks if a host is reachable?", options: ["ping", "pong", "reach", "check"], correct: "ping", expl: "Sends ICMP echo request.", difficulty: "Simple" },
+
+        // Hard / Theory (The "Strict" ones)
+        { text: "Which device creates separate collision domains but one broadcast domain?", options: ["Switch", "Hub", "Router", "Repeater"], correct: "Switch", expl: "Switch isolates collisions per port.", difficulty: "Hard" },
+        { text: "Protocol for translating Names to IP addresses:", options: ["DNS", "DHCP", "HTTP", "FTP"], correct: "DNS", expl: "Domain Name System.", difficulty: "Theory" },
+        { text: "Which topology uses a central controller?", options: ["Star", "Bus", "Ring", "Mesh"], correct: "Star", expl: "All nodes connect to a central hub/switch.", difficulty: "Theory" },
+        { text: "Protocol that automatically assigns IPs:", options: ["DHCP", "DNS", "TCP", "IP"], correct: "DHCP", expl: "Dynamic Host Configuration Protocol.", difficulty: "Theory" },
+        { text: "IPv4 address length:", options: ["32 bits", "64 bits", "128 bits", "16 bits"], correct: "32 bits", expl: "4 octets x 8 bits = 32 bits.", difficulty: "Theory" },
+        { text: "IPv6 address length:", options: ["128 bits", "32 bits", "64 bits", "256 bits"], correct: "128 bits", expl: "Hexadecimal format, 128 bits.", difficulty: "Theory" },
+        { text: "Topology requiring the most cabling:", options: ["Full Mesh", "Bus", "Ring", "Star"], correct: "Full Mesh", expl: "n(n-1)/2 links.", difficulty: "Hard" },
+        { text: "Which device connects different networks (LAN to WAN)?", options: ["Router", "Switch", "Hub", "Bridge"], correct: "Router", expl: "Routers route packets between distinct networks.", difficulty: "Theory" },
+        { text: "Physical address of a NIC is called:", options: ["MAC Address", "IP Address", "Port", "Socket"], correct: "MAC Address", expl: "Media Access Control address is hardware burned.", difficulty: "Theory" },
+        { text: "HTTP operates at which layer?", options: ["Application", "Physical", "Transport", "Network"], correct: "Application", expl: "It's an application protocol for web.", difficulty: "Theory" },
+        { text: "Transmission in both directions simultaneously:", options: ["Full-Duplex", "Simplex", "Half-Duplex", "Complex"], correct: "Full-Duplex", expl: "Like a telephone call.", difficulty: "Theory" },
+        { text: "Transmission in both directions but one at a time:", options: ["Half-Duplex", "Simplex", "Full-Duplex", "Multiplex"], correct: "Half-Duplex", expl: "Like a walkie-talkie.", difficulty: "Theory" },
+        { text: "VPN stands for:", options: ["Virtual Private Network", "Visual Private Network", "Virtual Public Network", "Very Private Network"], correct: "Virtual Private Network", expl: "Secure tunnel.", difficulty: "Theory" },
+        { text: "A private network inside an organization:", options: ["Intranet", "Internet", "Extranet", "Subnet"], correct: "Intranet", expl: "Internal use only.", difficulty: "Theory" },
+        { text: "Which device is a 'dumb' repeater?", options: ["Hub", "Switch", "Router", "Gateway"], correct: "Hub", expl: "Broadcasts to all ports blindly.", difficulty: "Theory" },
+        { text: "Which class of IP starts with 192?", options: ["Class C", "Class A", "Class B", "Class D"], correct: "Class C", expl: "Range 192-223.", difficulty: "Hard" },
+        { text: "The 's' in HTTPS stands for:", options: ["Secure", "Standard", "System", "Simple"], correct: "Secure", expl: "Encrypted via SSL/TLS.", difficulty: "Theory" },
+        { text: "Topology with a single backbone cable:", options: ["Bus", "Star", "Ring", "Mesh"], correct: "Bus", expl: "One main cable with terminators.", difficulty: "Theory" },
+        { text: "Which generates less traffic: Switch or Hub?", options: ["Switch", "Hub", "Both same", "Router"], correct: "Switch", expl: "Switch is unicast (smart), Hub is broadcast (noisy).", difficulty: "Theory" },
+        { text: "Loss of signal strength over distance:", options: ["Attenuation", "Latency", "Bandwidth", "Throughput"], correct: "Attenuation", expl: "Signal fades over distance.", difficulty: "Hard" },
+        { text: "Which is a valid Private IP?", options: ["192.168.1.1", "8.8.8.8", "172.50.1.1", "11.0.0.1"], correct: "192.168.1.1", expl: "Standard Class C private range.", difficulty: "Hard" },
+        { text: "Unit of data at the Network Layer:", options: ["Packet", "Frame", "Segment", "Bit"], correct: "Packet", expl: "Layer 3 PDU is Packet.", difficulty: "Hard" },
+        { text: "Star topology failure point:", options: ["Central Hub fails", "One cable breaks", "One PC fails", "None"], correct: "Central Hub fails", expl: "Single point of failure.", difficulty: "Theory" },
+        { text: "Which allows remote secure login?", options: ["SSH", "HTTP", "FTP", "Telnet"], correct: "SSH", expl: "Secure Shell.", difficulty: "Theory" },
+        { text: "Port 80 is used for:", options: ["HTTP", "FTP", "SSH", "DNS"], correct: "HTTP", expl: "Web traffic.", difficulty: "Hard" },
+        { text: "Port 443 is used for:", options: ["HTTPS", "HTTP", "FTP", "SMTP"], correct: "HTTPS", expl: "Secure Web traffic.", difficulty: "Hard" },
+        { text: "Simple Mail Transfer Protocol:", options: ["SMTP", "SNMP", "SMS", "SIMP"], correct: "SMTP", expl: "Sending email.", difficulty: "Theory" },
+        { text: "Interference between wires:", options: ["Crosstalk", "Attenuation", "Latency", "Jitter"], correct: "Crosstalk", expl: "Signal bleed.", difficulty: "Hard" },
+        { text: "Which uses MAC addresses?", options: ["Switch", "Hub", "Repeater", "Cable"], correct: "Switch", expl: "Layer 2 device.", difficulty: "Theory" },
+        { text: "Which uses IP addresses?", options: ["Router", "Switch", "Hub", "Cable"], correct: "Router", expl: "Layer 3 device.", difficulty: "Theory" },
+        { text: "Firewall function:", options: ["Filter traffic", "Route packets", "Assign IPs", "Translate Names"], correct: "Filter traffic", expl: "Security rules.", difficulty: "Theory" },
+        { text: "Bus topology termination:", options: ["Terminator", "Router", "Switch", "Hub"], correct: "Terminator", expl: "Absorbs signal at ends.", difficulty: "Theory" },
+        { text: "Ring topology data direction:", options: ["One way", "Both ways", "Random", "Central"], correct: "One way", expl: "Unidirectional usually.", difficulty: "Theory" },
+        { text: "Fiber optic connector:", options: ["ST/SC", "RJ45", "USB", "VGA"], correct: "ST/SC", expl: "Common fiber tips.", difficulty: "Hard" },
+        { text: "Ethernet standard:", options: ["802.3", "802.11", "802.5", "802.15"], correct: "802.3", expl: "Wired LAN.", difficulty: "Hard" },
+        { text: "Bluetooth standard:", options: ["802.15", "802.3", "802.11", "802.5"], correct: "802.15", expl: "PAN.", difficulty: "Hard" },
+        { text: "Physical topology vs Logical topology:", options: ["Physical=cables, Logical=signal path", "Same", "Physical=IP, Logical=MAC", "None"], correct: "Physical=cables, Logical=signal path", expl: "How it looks vs how it works.", difficulty: "Hard" },
+        { text: "Modem function:", options: ["Modulate/Demodulate", "Route", "Switch", "Filter"], correct: "Modulate/Demodulate", expl: "Analog to Digital.", difficulty: "Theory" }
     ];
-    while(netQuestions.length < 50) netQuestions.push({...netQuestions[0], text: "DNS resolves?", correct:"Names to IPs", options:["Names to IPs","IPs to MACs","MACs to IPs","None"]});
+    while(netQuestions.length < 50) netQuestions.push(netQuestions[Math.floor(Math.random() * netQuestions.length)]);
 
 
     // ==========================================
@@ -581,6 +671,6 @@
     // Init
     window.addEventListener('DOMContentLoaded', showDashboard);
 
-</script>
+                                                                                                                    </script>
 </body>
 </html>
