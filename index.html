@@ -289,8 +289,9 @@
 
 <script>
     // ==========================================
-    // 1. DATA GENERATORS (Same as before)
+    // 1. DATA GENERATORS
     // ==========================================
+    // Math Generator (Dynamic)
     function generateMathQuestions(count) {
         const questions = [];
         for(let i = 0; i < count; i++) {
@@ -365,9 +366,8 @@
         return bin.match(new RegExp('.{1,'+size+'}', 'g')).join(" ");
     }
 
-    // Static Banks - Expanded to ~50 Unique Questions per Chapter to avoid duplication
+    // Static Banks
     const algoQuestions = [
-        // Simple / Basic 
         { text: "What is an algorithm?", options: ["A step-by-step procedure to solve a problem", "A hardware component", "A programming language", "A type of computer"], correct: "A step-by-step procedure to solve a problem", expl: "Definition: A sequence of activities to be processed for getting desired output.", difficulty: "Simple" },
         { text: "Which symbol represents 'Start' or 'Stop' in a flowchart?", options: ["Oval", "Rectangle", "Diamond", "Parallelogram"], correct: "Oval", expl: "Ovals are terminal symbols.", difficulty: "Simple" },
         { text: "Which symbol represents 'Input' or 'Output' in a flowchart?", options: ["Parallelogram", "Rectangle", "Diamond", "Oval"], correct: "Parallelogram", expl: "Parallelograms denote input/output operations.", difficulty: "Simple" },
@@ -384,8 +384,6 @@
         { text: "True AND False equals:", options: ["False", "True", "Null", "Error"], correct: "False", expl: "AND is only true if both operands are true.", difficulty: "Simple" },
         { text: "Flowchart connector (small circle) is used for:", options: ["On-page connection", "Off-page connection", "Start", "End"], correct: "On-page connection", expl: "Connects parts of a flowchart on the same page.", difficulty: "Simple" },
         { text: "Intelligence is a key characteristic of:", options: ["Humans", "Calculators", "Cables", "Switches"], correct: "Humans", expl: "Differentiates humans from other creatures.", difficulty: "Simple" },
-        
-        // Hard / Tracing / Theory
         { text: "Which property ensures an algorithm stops after a finite number of steps?", options: ["Finiteness", "Definiteness", "Effectiveness", "Output"], correct: "Finiteness", expl: "Finiteness dictates that the algorithm must terminate.", difficulty: "Theory" },
         { text: "Trace: <code>x=10; y=5; while(x>y) { x=x-2; y=y+1; }</code> What are x and y?", options: ["x=6, y=7", "x=4, y=8", "x=5, y=5", "x=6, y=6"], correct: "x=6, y=7", expl: "Iter 1: x=8, y=6. Iter 2: x=6, y=7 (Stop).", difficulty: "Tracing" },
         { text: "Trace: <code>A=5; B=10; if(A>B) C=A; else C=B;</code> Value of C?", options: ["10", "5", "0", "Error"], correct: "10", expl: "5 is not greater than 10, so Else executes: C=B=10.", difficulty: "Tracing" },
@@ -422,7 +420,6 @@
     ];
 
     const netQuestions = [
-        // Simple / Basic 
         { text: "What does LAN stand for?", options: ["Local Area Network", "Large Area Network", "Long Area Network", "Local Array Network"], correct: "Local Area Network", expl: "Network in a small area like a home or office.", difficulty: "Simple" },
         { text: "What does WAN stand for?", options: ["Wide Area Network", "Wireless Area Network", "Web Area Network", "Whole Area Network"], correct: "Wide Area Network", expl: "Network covering a large geographic area.", difficulty: "Simple" },
         { text: "What does MAN stand for?", options: ["Metropolitan Area Network", "Main Area Network", "Massive Area Network", "Mini Area Network"], correct: "Metropolitan Area Network", expl: "Network covering a city.", difficulty: "Simple" },
@@ -441,8 +438,6 @@
         { text: "NOS stands for:", options: ["Network Operating System", "New Operating System", "Network Over System", "No Operating System"], correct: "Network Operating System", expl: "Controls network operations.", difficulty: "Simple" },
         { text: "1G cellular technology used:", options: ["Analog radio signals", "Digital radio signals", "LTE", "Microwaves"], correct: "Analog radio signals", expl: "First generation was analog.", difficulty: "Simple" },
         { text: "2G cellular technology used:", options: ["Digital radio signals", "Analog radio signals", "LTE", "Fiber"], correct: "Digital radio signals", expl: "Shift to digital.", difficulty: "Simple" },
-        
-        // Hard / Theory / Protocols
         { text: "Which device creates separate collision domains but one broadcast domain?", options: ["Switch", "Hub", "Router", "Repeater"], correct: "Switch", expl: "Switch isolates collisions per port.", difficulty: "Hard" },
         { text: "Protocol for translating Names to IP addresses:", options: ["DNS", "DHCP", "HTTP", "FTP"], correct: "DNS", expl: "Domain Name System.", difficulty: "Theory" },
         { text: "Which topology uses a central controller?", options: ["Star", "Bus", "Ring", "Mesh"], correct: "Star", expl: "All nodes connect to a central hub/switch.", difficulty: "Theory" },
@@ -488,6 +483,67 @@
     ];
 
     // ==========================================
+    // 1.5 TOTAL RECALL GENERATOR (NEW)
+    // ==========================================
+    function generateTotalRecallQuestions() {
+        let q = [];
+        
+        // --- CH 6: Specific Examples from Slides ---
+        q.push({ text: "Convert <strong>(9375)<sub>10</sub></strong> to position values.", options: ["9x1000 + 3x100 + 7x10 + 5x1", "9x100 + 3x10 + 7x1 + 5x0.1", "5x1000 + 7x100 + 3x10 + 9x1"], correct: "9x1000 + 3x100 + 7x10 + 5x1", expl: "Slide 10 example.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "What is the decimal value of <strong>(10101101)<sub>2</sub></strong>?", options: ["173", "167", "181", "155"], correct: "173", expl: "Slide 21: 128+32+8+4+1 = 173.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Calculate <strong>0.101<sub>2</sub></strong> in decimal.", options: ["0.625", "0.525", "0.101", "0.75"], correct: "0.625", expl: "Slide 25: 0.5 + 0 + 0.125.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Convert <strong>(3A9F)<sub>16</sub></strong> to decimal.", options: ["14999", "15007", "13999", "16000"], correct: "14999", expl: "Slide 18 example.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Value of 'A' in Hexadecimal:", options: ["10", "11", "12", "13"], correct: "10", expl: "Slide 11.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Value of 'F' in Hexadecimal:", options: ["15", "16", "14", "10"], correct: "15", expl: "Slide 11.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Convert <strong>(0.3125)<sub>10</sub></strong> to binary.", options: [".0101", ".1010", ".0011", ".1100"], correct: ".0101", expl: "Slide 37 example.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "Result of <strong>13 / 2</strong> (Integer Division)?", options: ["6", "6.5", "7", "5"], correct: "6", expl: "Slide 30 logic.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "One logical XOR rule: 1 XOR 1 = ?", options: ["0", "1", "10", "Error"], correct: "0", expl: "Slide 47.", chapter: "Total Recall: Ch6" });
+        q.push({ text: "One logical AND rule: 1 AND 0 = ?", options: ["0", "1", "10", "Null"], correct: "0", expl: "Slide 49.", chapter: "Total Recall: Ch6" });
+
+        // --- CH 7: Every definition & Example ---
+        q.push({ text: "Which control structure is used for 'If-Then'?", options: ["Selection", "Sequence", "Loop", "Recursion"], correct: "Selection", expl: "Slide 14.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "A loop within a loop is called:", options: ["Nested Loop", "Double Loop", "Inner Loop", "Recursion"], correct: "Nested Loop", expl: "Slide 19.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Algorithm Property: 'Always terminate after finite steps' is:", options: ["Finiteness", "Definiteness", "Input", "Output"], correct: "Finiteness", expl: "Slide 20, Property 1.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Algorithm Property: 'Steps must be precisely defined' is:", options: ["Definiteness", "Finiteness", "Effectiveness", "Input"], correct: "Definiteness", expl: "Slide 20, Property 2.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Algorithm Property: 'Operations must be basic/doable' is:", options: ["Effectiveness", "Efficiency", "Definiteness", "Finiteness"], correct: "Effectiveness", expl: "Slide 20, Property 5.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Problem Solving: 'Can all problems be solved?'", options: ["No (Open Problems)", "Yes", "Only math problems", "Only logic problems"], correct: "No (Open Problems)", expl: "Slide 7.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "In the 'Area of Circle' algorithm (Slide 10), Step 2 is:", options: ["Area = PI * r * r", "Read r", "Print Area", "Start"], correct: "Area = PI * r * r", expl: "Slide 10.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Formula for Fahrenheit to Celsius (Slide 12):", options: ["C = 5/9 * (F-32)", "C = 9/5 * (F-32)", "C = F - 32", "C = F + 32"], correct: "C = 5/9 * (F-32)", expl: "Slide 12.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Diamond symbol in flowchart represents:", options: ["Decision", "Process", "Input", "Start"], correct: "Decision", expl: "Slide 14.", chapter: "Total Recall: Ch7" });
+        q.push({ text: "Rectangular box in flowchart represents:", options: ["Process/Action", "Decision", "Input", "Start"], correct: "Process/Action", expl: "Standard symbol.", chapter: "Total Recall: Ch7" });
+
+        // --- CH 8: Every component & protocol ---
+        q.push({ text: "Node requesting resources is called:", options: ["Client", "Server", "Host", "Router"], correct: "Client", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Node providing resources is called:", options: ["Server", "Client", "Hub", "Bridge"], correct: "Server", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Any computer providing access to resources is a:", options: ["Host", "Client", "Guest", "Terminal"], correct: "Host", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Device that forwards packets between networks:", options: ["Router", "Switch", "Hub", "Bridge"], correct: "Router", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Device coordinating flow between nodes (intelligent):", options: ["Switch", "Hub", "Repeater", "Cable"], correct: "Switch", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Older device that directs flow to ALL nodes:", options: ["Hub", "Switch", "Router", "Bridge"], correct: "Hub", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "NIC stands for:", options: ["Network Interface Card", "Network Internet Card", "New Internal Card", "Node Interface Chip"], correct: "Network Interface Card", expl: "Slide 3.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Media using pulses of light:", options: ["Fiber-optic", "Coaxial", "Twisted-pair", "Microwave"], correct: "Fiber-optic", expl: "Slide 7.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Cable with single solid-copper core:", options: ["Coaxial", "Fiber-optic", "Twisted-pair", "Ethernet"], correct: "Coaxial", expl: "Slide 7.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Cable with pairs of copper wires twisted:", options: ["Twisted-pair", "Coaxial", "Fiber-optic", "Single-pair"], correct: "Twisted-pair", expl: "Slide 7.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Wireless channel using high-freq radio signals:", options: ["Wi-Fi", "Bluetooth", "Infrared", "Microwave"], correct: "Wi-Fi", expl: "Slide 6.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Short distance wireless (light waves):", options: ["Infrared", "Bluetooth", "Wi-Fi", "Microwave"], correct: "Infrared", expl: "Slide 6.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Network confined to a building/campus:", options: ["LAN", "WAN", "MAN", "PAN"], correct: "LAN", expl: "Slide 8.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Network covering cities/large campuses:", options: ["MAN", "LAN", "WAN", "PAN"], correct: "MAN", expl: "Slide 8.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Network connecting personal devices (short range):", options: ["PAN", "LAN", "MAN", "WAN"], correct: "PAN", expl: "Slide 8.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Protocol for sending email:", options: ["SMTP", "HTTP", "FTP", "DNS"], correct: "SMTP", expl: "Slide 12.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Protocol for transferring files:", options: ["FTP", "HTTP", "SMTP", "DNS"], correct: "FTP", expl: "Slide 12.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Topology with a central node:", options: ["Star", "Ring", "Bus", "Mesh"], correct: "Star", expl: "Slide 15.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Topology forming a loop:", options: ["Ring", "Bus", "Star", "Tree"], correct: "Ring", expl: "Slide 14.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Topology with a shared backbone cable:", options: ["Bus", "Ring", "Star", "Mesh"], correct: "Bus", expl: "Slide 14.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Most common modern topology:", options: ["Star", "Bus", "Ring", "Token"], correct: "Star", expl: "Slide 15.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Topology where each node links to 2+ others:", options: ["Mesh", "Star", "Bus", "Tree"], correct: "Mesh", expl: "Slide 17.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Strategy where nodes are equal (no central server):", options: ["Peer-to-peer", "Client/Server", "Hierarchical", "Mainframe"], correct: "Peer-to-peer", expl: "Slide 18.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Hardware/Software controlling access (Security):", options: ["Firewall", "Router", "Switch", "Hub"], correct: "Firewall", expl: "Slide 19.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "System detecting external threats:", options: ["IDS (Intrusion Detection System)", "DNS", "DHCP", "VPN"], correct: "IDS (Intrusion Detection System)", expl: "Slide 19.", chapter: "Total Recall: Ch8" });
+        q.push({ text: "Secure private connection over public network:", options: ["VPN", "LAN", "WAN", "PAN"], correct: "VPN", expl: "Slide 19.", chapter: "Total Recall: Ch8" });
+
+        return q;
+    }
+
+    // ==========================================
     // 2. STATE MANAGEMENT & LOCAL STORAGE
     // ==========================================
     let state = {
@@ -529,19 +585,38 @@
         document.getElementById('dashboard').style.display = 'flex';
         document.getElementById('quiz-interface').style.display = 'none';
         loadState();
+        
+        // Add Total Recall Card if not exists
+        if (!document.getElementById('total-recall-card')) {
+            const grid = document.querySelector('.focus-grid');
+            const recallCard = document.createElement('div');
+            recallCard.className = 'focus-card';
+            recallCard.id = 'total-recall-card';
+            recallCard.onclick = () => toggleFocus(recallCard, 'Recall');
+            recallCard.innerHTML = `
+                <h3 style="color:#b91c1c">Total Recall</h3>
+                <p>Every single concept<br>(Slides & Definitions)</p>
+            `;
+            grid.appendChild(recallCard);
+        }
     }
 
     function toggleFocus(el, chapter) {
-        if (chapter === 'Review') {
+        if (chapter === 'Recall') {
+            document.querySelectorAll('.focus-card').forEach(c => c.classList.remove('selected'));
+            selectedChapters = ['Recall'];
+            el.classList.add('selected');
+        }
+        else if (chapter === 'Review') {
             if (state.wrongAnswers.length === 0) return alert("No wrong answers to review yet!");
-            // Exclusive selection for review
             document.querySelectorAll('.focus-card').forEach(c => c.classList.remove('selected'));
             selectedChapters = ['Review'];
             el.classList.add('selected');
         } else {
-            // Deselect Review if normal chapter selected
             document.getElementById('review-card').classList.remove('selected');
-            if (selectedChapters.includes('Review')) selectedChapters = [];
+            if (document.getElementById('total-recall-card')) document.getElementById('total-recall-card').classList.remove('selected');
+            
+            if (selectedChapters.includes('Review') || selectedChapters.includes('Recall')) selectedChapters = [];
 
             if (selectedChapters.includes(chapter)) {
                 selectedChapters = selectedChapters.filter(c => c !== chapter);
@@ -554,14 +629,20 @@
         
         const btn = document.getElementById('start-btn');
         btn.disabled = selectedChapters.length === 0;
-        btn.textContent = selectedChapters.includes('Review') ? "Start Review" : "Start Practice";
+        
+        if (selectedChapters.includes('Recall')) btn.textContent = "Start Total Recall";
+        else if (selectedChapters.includes('Review')) btn.textContent = "Start Review";
+        else btn.textContent = "Start Practice";
     }
 
     function startQuiz() {
         sessionQueue = [];
 
-        if (selectedChapters.includes('Review')) {
-            sessionQueue = shuffleArray([...state.wrongAnswers]); // Copy wrong answers
+        if (selectedChapters.includes('Recall')) {
+            sessionQueue = shuffleArray(generateTotalRecallQuestions());
+        }
+        else if (selectedChapters.includes('Review')) {
+            sessionQueue = shuffleArray([...state.wrongAnswers]); 
         } else {
             if (selectedChapters.includes('Chapter 6')) sessionQueue.push(...generateMathQuestions(50));
             if (selectedChapters.includes('Chapter 7')) {
@@ -683,6 +764,6 @@
     // Init
     window.addEventListener('DOMContentLoaded', showDashboard);
 
-                                                                                                       </script>
+</script>
 </body>
 </html>
